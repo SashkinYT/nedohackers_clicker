@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEDOHACKERS Clicker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-color: rgb(18,18,18);
+        }
+        .strength{
+            color: white;
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            padding: 10px;
+            background-color: rgba(72,72,72,0.5);
+            border: 0px solid;
+            border-radius: 10px;
+        }
+        .perclick{
+            color: white;
+            position: absolute;
+            left: 20px;
+            bottom: 15px;
+            padding: 10px;
+            background-color: rgba(72,72,72,0.5);
+            border: 0px solid;
+            border-radius: 10px;
+        }
+        *{
+            margin: 0px;
+            font-family: 'Rubik';
+            padding: 0px;
+            overflow: hidden;
+        }
+        .container{
+            position: absolute;
+            width: 1200px;
+            height: 800px;
+            left: calc(50vw - 600px);
+            top: calc(50vh - 400px);
+            border-radius: 30px;
+            background-color: rgb(36,36,36);
+        }
+        .nedohack{
+            width: 500px;
+            height: 500px;
+            position: absolute;
+            left: 80px;
+            top: 150px;
+            cursor: pointer;
+            transition: 1s;
+            animation: aboba;
+            animation-iteration-count: infinite;
+            animation-duration: 2s;
+            z-index: 2;
+        }
+        @keyframes aboba {
+            0%{
+                transform: rotate(-20deg);
+            }
+            50%{
+                transform: rotate(20deg);
+            }
+            100%{
+                transform: rotate(-20deg);
+            }
+        }
+        .nedohack2{
+            width: 600px;
+            height: 600px;
+            position: absolute;
+            left: 75px;
+            top: 100px;
+            cursor: pointer;
+            transition: .1s;
+            animation: aboba;
+            animation-iteration-count: infinite;
+            animation-duration: 2s;
+            z-index: 2;
+        }
+        .background{
+            width: 800px;
+            height: 800px;
+            left: -75px;
+            top: 0px;
+            position: absolute;
+            animation: aboba2;
+            animation-iteration-count: infinite;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            z-index: 1;
+        }
+        @keyframes aboba2{
+            0%{
+                transform: rotate(0deg);
+            }
+            50%{
+                transform: rotate(180deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+        .upgradebtn1{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            font-size: 24px;
+            border-radius: 10px;
+            right: 50px;
+            top: 30px;
+            cursor: pointer;
+        }
+        .upgradebtn2{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            right: 50px;
+            top: 140px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .upgradebtn3{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            right: 50px;
+            top: 250px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .upgradebtn4{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            right: 50px;
+            font-size: 24px;
+            top: 360px;
+            cursor: pointer;
+        }
+        .upgradebtn5{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            right: 50px;
+            font-size: 24px;
+            top: 470px;
+            cursor: pointer;
+        }
+        .upgradebtn6{
+            background-color: rgb(48, 48, 48);
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            font-size: 24px;
+            border-radius: 10px;
+            right: 50px;
+            top: 580px;
+            cursor: pointer;
+        }
+        .battle{
+            background-color: crimson;
+            color: white;
+            position: absolute;
+            border: 0px solid;
+            width: 400px;
+            height: 100px;
+            border-radius: 10px;
+            right: 50px;
+            font-size: 96px;
+            bottom: 9px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="strength" id="strength">Ваш уровень силы: 0</h1>
+        <h1 class="perclick" id="perclick">Сила за клик: 1</h1>
+        <img src="nedohackers.png" id="nedohacker" class="nedohack" onclick="clickNH()">
+        <img src="background.png" class="background">
+        <button class="upgradebtn1" onclick="upgrade1()">+2 за клик(Цена: 200 силы)</button>
+        <button class="upgradebtn2" onclick="upgrade2()">+20 за клик(Цена: 1.800 силы)</button>
+        <button class="upgradebtn3" onclick="upgrade3()">+100 за клик(Цена: 8.888 силы)</button>
+        <button class="upgradebtn4" onclick="upgrade4()">+5.000 за клик(Цена: 40.000 силы)</button>
+        <button class="upgradebtn5" onclick="upgrade5()">+100.000 за клик(Цена: 720.000 силы)</button>
+        <button class="upgradebtn6" onclick="upgrade6()">+100.000.000 за клик(Цена: 600.000.000 силы)</button>
+        <a href="fight.html"><button class="battle">В БОЙ!</button></a>
+    </div>
+    <script>
+        var localStorage = window.localStorage
+        
+        var strength = Number(localStorage.getItem("strength"))
+        if(localStorage.getItem("strength")==null){
+            strength=0
+            localStorage.setItem("strength","0")
+        }
+        document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+        var perclickStr = Number(localStorage.getItem("perclick"))
+        if(localStorage.getItem("perclick")==null){
+            perclickStr=1
+            localStorage.setItem("perclick","1")
+        }
+        document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+        function clickNH(){
+            strength+=perclickStr;
+            localStorage.setItem("strength",`${strength}`)
+            document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+            document.getElementById("nedohacker").className = "nedohack2"
+            setTimeout(()=>{
+                document.getElementById("nedohacker").className = "nedohack"
+            },100)
+        }
+
+        function upgrade1(){
+            if(strength>=200){
+                strength-=200
+                perclickStr+=2
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        function upgrade2(){
+            if(strength>=1800){
+                strength-=1800
+                perclickStr+=20
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        function upgrade3(){
+            if(strength>=8888){
+                strength-=8888
+                perclickStr+=100
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        function upgrade4(){
+            if(strength>=40000){
+                strength-=40000
+                perclickStr+=5000
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        function upgrade5(){
+            if(strength>=720000){
+                strength-=720000
+                perclickStr+=100000
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        function upgrade6(){
+            if(strength>=600000000){
+                strength-=600000000
+                perclickStr+=100000000
+                localStorage.setItem("perclick",`${perclickStr}`)
+                localStorage.setItem("strength",`${strength}`)
+                document.getElementById("strength").innerText = `Ваш уровень силы: ${strength.toLocaleString()}`
+                document.getElementById("perclick").innerText = `Сила за клик: ${perclickStr.toLocaleString()}`
+            }
+        }
+        setInterval(()=>{
+            document.cookie = `strength=${strength}`
+            document.cookie = `perclick=${perclickStr}`
+        },100)
+    </script>
+</body>
+</html>

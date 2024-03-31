@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEDOHACKERS Clicker: Fight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            background-color: rgb(18,18,18);
+        }
+        *{
+            margin: 0px;
+            font-family: 'Rubik';
+            padding: 0px;
+            overflow: hidden;
+            color: white;
+        }
+        .container{
+            position: absolute;
+            width: 1200px;
+            height: 800px;
+            left: calc(50vw - 600px);
+            top: calc(50vh - 400px);
+            border-radius: 30px;
+            background-color: rgb(36,36,36);
+        }
+        .health1{
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        .health2{
+            position: absolute;
+            left: 10px;
+            top: 50px;
+        }
+        .strength1{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        .strength2{
+            position: absolute;
+            right: 10px;
+            top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" style="color: white; position: absolute; left: 10px; top: 10px; font-size: 1.5vmax;">Назад</a>
+    <div class="container">
+        <h1 id="health1" class="health1">Ваше здоровье: 0</h1>
+        <h1 id="health2" class="health2">Здоровье Костяна: 100000000</h1>
+        <h1 id="strength1" class="strength1">Ваша сила: 0</h1>
+        <h1 id="strength2" class="strength2">Сила Костяна: 100000000000</h1>
+        <img src="nedohackers.png" style="transform: scaleX(-1); position: absolute; left: 50px; bottom: 50px;">
+        <img src="kostyan.png" style="position: absolute; right: 50px; bottom: 50px; cursor: pointer;" onclick="attackEnemy()">
+        <img id="frozen1" src="frozen.png" style="position: absolute; position: absolute; left: 125px; bottom: 75px; width: 400px; height: 475px;" hidden>
+        <img id="frozen2" src="frozen.png" style="position: absolute; position: absolute; right: 100px; bottom: 50px; width: 400px; height: 525px; cursor: pointer;" onclick="attackEnemy()" hidden>
+        <button style="width: 100px; height: 100px; background-color: rgb(72,72,72);border: 0px solid; border-radius: 15px; position: absolute; top: 350px; left: 550px; cursor: pointer;" onclick="freeze1()" id="enemy">Заморозить врага (3)</button>
+    </div>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        var health1 = Math.round(Number(getCookie("perclick"))/100)
+        var health2 = 100000000
+
+        
+
+        var isFrozen1 = false
+        var isFrozen2 = false
+
+        var frozen1uses = 3
+
+        var enemyFreezeTimings = [Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100)]
+
+        var firstAttack = true
+
+        setInterval(()=>{
+            document.getElementById("health1").innerText = `Ваше здоровье: ${health1.toLocaleString()}`
+            document.getElementById("health2").innerText = `Здоровье Костяна: ${health2.toLocaleString()}`
+            if(health2<=0){
+                location.href = "winner.html"
+            }
+            if (health1<=0){
+                location.href = "loser.html"
+            }
+        },100)
+        
+        var strength1 = Number(getCookie("strength"))
+        var strength2 = 100000000000
+        document.getElementById("strength1").innerText = `Ваша сила: ${strength1.toLocaleString()}`
+        document.getElementById("strength2").innerText = `Сила Костяна: ${strength2.toLocaleString()}`
+
+        function freeze2(){
+            isFrozen1 = true
+            document.getElementById("frozen1").hidden = false
+            setTimeout(()=>{
+                isFrozen1 = false
+                document.getElementById("frozen1").hidden = true
+            },10000)
+        }
+
+        function freeze1(){
+            if(frozen1uses!==0 && isFrozen2==false){
+                frozen1uses--;
+                document.getElementById("enemy").innerText = `Заморозить врага (${frozen1uses})`
+                isFrozen2 = true
+                document.getElementById("frozen2").hidden = false
+                setTimeout(()=>{
+                    isFrozen2 = false
+                    document.getElementById("frozen2").hidden = true
+                },10000)
+            }
+        }
+
+        var attackDelay = 0
+        var attackDamage = Math.round(strength1/10000)
+        function kostyan(){
+            setInterval(()=>{
+                if(isFrozen2===false){
+                    health1-=10000000
+                    document.getElementById("health1").style.color = "red"
+                    setTimeout(()=>{
+                        document.getElementById("health1").style.color = "white"
+                    },250)
+                }
+            },1000)
+            for(var x in enemyFreezeTimings){
+                timing = enemyFreezeTimings[x]
+                setTimeout(()=>{
+                    freeze2()
+                },timing*1000)
+            }
+        }
+
+        function attackEnemy(){
+            if(firstAttack==true){
+                firstAttack=false
+                kostyan()
+            }
+            if(attackDelay==0 && isFrozen1==false){
+                document.getElementById("health2").style.color = "red"
+                setTimeout(()=>{
+                    document.getElementById("health2").style.color = "white"
+                },250)
+                attackDelay = 1
+                health2 -= attackDamage
+                setTimeout(()=>{
+                    attackDelay = 0
+                },1000)
+            }
+        }
+    </script>
+</body>
+</html>
