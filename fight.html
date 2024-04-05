@@ -76,6 +76,7 @@
 
         var isFrozen1 = false
         var isFrozen2 = false
+        var activePlaying=false
 
         var frozen1uses = 3
 
@@ -86,10 +87,12 @@
         setInterval(()=>{
             document.getElementById("health1").innerText = `Ваше здоровье: ${health1.toLocaleString()}`
             document.getElementById("health2").innerText = `Здоровье Костяна: ${health2.toLocaleString()}`
-            if(health2<=0){
+            if(health2<=0&&activePlaying){
                 location.href = "winner.html"
+activePlaying=false
             }
-            if (health1<=0){
+            if (health1<=0&&activePlaying){
+activePlaying=false
                 location.href = "loser.html"
             }
         },100)
@@ -124,6 +127,7 @@
         var attackDelay = 0
         var attackDamage = Math.round(strength1/10000)
         function kostyan(){
+activePlaying=true
             setInterval(()=>{
                 if(isFrozen2===false){
                     health1-=10000000
