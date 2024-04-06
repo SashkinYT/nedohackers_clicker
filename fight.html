@@ -89,7 +89,7 @@
 
         setInterval(()=>{
             document.getElementById("health1").innerText = `Ваше здоровье: ${health1.toLocaleString()}`
-            document.getElementById("health2").innerText = `Здоровье Костяна: ${health2.toLocaleString()}`
+            document.getElementById("health2").innerText = `Здоровье Кости: ${health2.toLocaleString()}`
             if(health2<=0&&activePlaying){
                 document.getElementById("winnersound").play()
                 endofgame = true
@@ -109,7 +109,7 @@ activePlaying=false
         var strength1 = Number(getCookie("strength"))
         var strength2 = 100000000000000
         document.getElementById("strength1").innerText = `Ваша сила: ${strength1.toLocaleString()}`
-        document.getElementById("strength2").innerText = `Сила Костяна: ${strength2.toLocaleString()}`
+        document.getElementById("strength2").innerText = `Сила Кости: ${strength2.toLocaleString()}`
 
         function freeze2(){
             isFrozen1 = true
