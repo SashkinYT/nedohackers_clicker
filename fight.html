@@ -62,6 +62,8 @@
         <img id="frozen2" src="frozen.png" style="position: absolute; position: absolute; right: 100px; bottom: 50px; width: 400px; height: 525px; cursor: pointer;" onclick="attackEnemy()" hidden>
         <button style="width: 100px; height: 100px; background-color: rgb(72,72,72);border: 0px solid; border-radius: 15px; position: absolute; top: 350px; left: 550px; cursor: pointer;" onclick="freeze1()" id="enemy">Заморозить врага (3)</button>
     </div>
+    <audio src="hehesuda.mp3" id="winnersound"></audio>
+    <audio src="oi_slomal.mp3" id="losersound"></audio>
     <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -88,12 +90,16 @@
             document.getElementById("health1").innerText = `Ваше здоровье: ${health1.toLocaleString()}`
             document.getElementById("health2").innerText = `Здоровье Костяна: ${health2.toLocaleString()}`
             if(health2<=0&&activePlaying){
-                location.href = "winner.html"
+                document.getElementById("winnersound").play()
+                setTimeout(()=>{
+                location.href = "winner.html"},2500)
 activePlaying=false
             }
             if (health1<=0&&activePlaying){
 activePlaying=false
-                location.href = "loser.html"
+                document.getElementById("losersound").play()
+                setTimeout(()=>{
+                location.href = "loser.html"},2500)
             }
         },100)
         
