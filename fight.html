@@ -85,12 +85,14 @@
         var enemyFreezeTimings = [Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100)]
 
         var firstAttack = true
+        var endofgame = false
 
         setInterval(()=>{
             document.getElementById("health1").innerText = `Ваше здоровье: ${health1.toLocaleString()}`
             document.getElementById("health2").innerText = `Здоровье Костяна: ${health2.toLocaleString()}`
             if(health2<=0&&activePlaying){
                 document.getElementById("winnersound").play()
+                endofgame = true
                 setTimeout(()=>{
                 location.href = "winner.html"},2500)
 activePlaying=false
@@ -98,6 +100,7 @@ activePlaying=false
             if (health1<=0&&activePlaying){
 activePlaying=false
                 document.getElementById("losersound").play()
+                endofgame = true
                 setTimeout(()=>{
                 location.href = "loser.html"},2500)
             }
@@ -129,13 +132,12 @@ activePlaying=false
                 },10000)
             }
         }
-
         var attackDelay = 0
         var attackDamage = Math.round(strength1/10000)
         function kostyan(){
 activePlaying=true
             setInterval(()=>{
-                if(isFrozen2===false){
+                if(isFrozen2===false&&endofgame===false){
                     health1-=10000000
                     document.getElementById("health1").style.color = "red"
                     setTimeout(()=>{
@@ -156,7 +158,7 @@ activePlaying=true
                 firstAttack=false
                 kostyan()
             }
-            if(attackDelay==0 && isFrozen1==false){
+            if(attackDelay==0 && isFrozen1==false &&endofgame===false){
                 document.getElementById("health2").style.color = "red"
                 setTimeout(()=>{
                     document.getElementById("health2").style.color = "white"
